@@ -1,1 +1,0 @@
-taking a raw photo shoot images, directly put into the pipeline, output is acceptable

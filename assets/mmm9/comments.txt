@@ -1,1 +1,0 @@
-stress test, using the different light controls, in this case soft light vs hard direct light, very mild could provide more options

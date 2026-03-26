@@ -1,1 +1,0 @@
-stress test of mixing both a runway photo of low quality and high quality back photo, seems to be able to blend decently but the lighting differences are obvious
