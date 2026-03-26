@@ -1,0 +1,1 @@
+another example of taking a full runway look and modeling it, the output here is interesting, it was not trained for this but seems to do a good job at translating it with low quality poor lighting runway photo.

@@ -1,0 +1,1 @@
+stress test, using the flat clean up variable control, seems to not work very well when the item breaks normal standard for what clothing is, in this case its a oversized coat and model seems to struggle with properly "flattening" it when the option was disabled though it removed the hanger cleanly though.

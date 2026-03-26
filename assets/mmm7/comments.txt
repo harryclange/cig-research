@@ -1,0 +1,1 @@
+stress test, another example of inputs that has a lot of intricate detail and not complete back, output looks decent but back is missing aspects

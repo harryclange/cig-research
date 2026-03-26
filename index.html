@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CIG: Consistent Image Generation for Product Photography</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="container">
+      <p class="hero-label">Proof of Concept &mdash; March 2026</p>
+      <h1>CIG: Consistent Image Generation<br>for Product Photography</h1>
+      <p class="hero-sub">
+        A multi-stage image synthesis pipeline that transforms raw garment
+        photographs into studio-quality ghost mannequin renders at 4K
+        resolution&mdash;preserving exact garment details while enforcing
+        catalog-wide visual consistency.
+      </p>
+      <div class="hero-meta">
+        <span>Von Lange</span>
+        <span class="dot"></span>
+        <span>Custom Image Model</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Pipeline (compact, horizontal) -->
+  <section class="container section" id="pipeline">
+    <h2>The Pipeline</h2>
+    <p class="section-intro">
+      CIG operates as a modular multi-stage pipeline. Each stage addresses a
+      specific failure mode of naive image generation.
+    </p>
+    <div class="pipeline-horizontal">
+      <div class="pipe-step">
+        <div class="pipe-icon">1</div>
+        <h4>Input</h4>
+        <p>Reference input photos</p>
+      </div>
+      <div class="pipe-arrow">&rarr;</div>
+      <div class="pipe-step">
+        <div class="pipe-icon">2</div>
+        <h4>Style Match</h4>
+        <p>Pull trained reference library</p>
+      </div>
+      <div class="pipe-arrow">&rarr;</div>
+      <div class="pipe-step">
+        <div class="pipe-icon">3</div>
+        <h4>Generate</h4>
+        <p>Style-conditioned synthesis</p>
+      </div>
+      <div class="pipe-arrow">&rarr;</div>
+      <div class="pipe-step">
+        <div class="pipe-icon">4</div>
+        <h4>Critique</h4>
+        <p>Fidelity + style checks</p>
+      </div>
+      <div class="pipe-arrow">&rarr;</div>
+      <div class="pipe-step">
+        <div class="pipe-icon">5</div>
+        <h4>Correct</h4>
+        <p>Targeted regeneration</p>
+      </div>
+      <div class="pipe-arrow">&rarr;</div>
+      <div class="pipe-step pipe-final">
+        <div class="pipe-icon">&#10003;</div>
+        <h4>Output</h4>
+        <p>High-quality catalog-ready</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- RESULTS — Lead with the work               -->
+  <!-- ═══════════════════════════════════════════ -->
+
+  <section class="container section" id="results">
+    <h2>Results</h2>
+    <p class="section-intro">
+      Each example shows source photographs alongside the CIG pipeline output.
+      Where both front and back source images were provided, the pipeline
+      produces matched ghost mannequin renders for both views.
+    </p>
+
+    <!-- ─── Production Examples ─── -->
+    <h3>Production Examples</h3>
+    <p>High-confidence outputs suitable for direct catalog use.</p>
+
+    <div class="gallery">
+
+      <!-- MMM1: Patchwork Silk Skirt -->
+      <div class="gallery-quad">
+        <div class="gallery-quad-header">
+          <span class="quad-label source-label">Source</span>
+          <span class="quad-label output-label">CIG Output</span>
+        </div>
+        <div class="gallery-quad-row">
+          <div class="gallery-image"><img src="assets/mmm1/mmm-skirt-input1.webp" alt="Skirt front source"></div>
+          <div class="gallery-image"><img src="assets/mmm1/mmm-skirt-input2.webp" alt="Skirt back source"></div>
+          <div class="gallery-image"><img src="assets/mmm1/mmm-skirt-result1.png" alt="Skirt front render"></div>
+          <div class="gallery-image"><img src="assets/mmm1/mmm-skirt-result2.png" alt="Skirt back render"></div>
+        </div>
+        <p class="gallery-caption">
+          <strong>Patchwork Silk Skirt</strong> &mdash; Multi-panel construction with paisley,
+          geometric, and floral print sections. The pipeline preserves exact pattern placement
+          and panel alignment across both views while cleanly removing the mannequin body and
+          producing matched front/back renders.
+        </p>
+      </div>
+
+      <!-- MMM4: Shearling Coat -->
+      <div class="gallery-quad">
+        <div class="gallery-quad-header">
+          <span class="quad-label source-label">Source</span>
+          <span class="quad-label output-label">CIG Output</span>
+        </div>
+        <div class="gallery-quad-row">
+          <div class="gallery-image"><img src="assets/mmm4/mmm-coat-input1.jpeg" alt="Coat front source"></div>
+          <div class="gallery-image"><img src="assets/mmm4/mmm-coat-input2.jpeg" alt="Coat back source"></div>
+          <div class="gallery-image"><img src="assets/mmm4/mmm-coat-result1.png" alt="Coat front render"></div>
+          <div class="gallery-image"><img src="assets/mmm4/mmm-coat-result2.png" alt="Coat back render"></div>
+        </div>
+        <p class="gallery-caption">
+          <strong>Full-Length Shearling Coat</strong> &mdash; Floor-length distressed leather
+          with exposed shearling trim along every seam. The output preserves the natural leather
+          aging, individual creases, and the irregular raw-edge shearling detail&mdash;construction
+          elements that naive generation typically smooths away or idealizes. Note: It seems to struggle with the inner material here, as you can see it added a white inner layer to the coat, something that could be trained to recognize and remove.
+        </p>
+      </div>
+
+      <!-- MMM2: Woven Ribbon Jacket -->
+      <div class="gallery-quad">
+        <div class="gallery-quad-header">
+          <span class="quad-label source-label">Source</span>
+          <span class="quad-label output-label">CIG Output</span>
+        </div>
+        <div class="gallery-quad-row">
+          <div class="gallery-image"><img src="assets/mmm2/mmm-jacket-input1.webp" alt="Jacket front source"></div>
+          <div class="gallery-image"><img src="assets/mmm2/mmm-jacket-input2.webp" alt="Jacket back source"></div>
+          <div class="gallery-image"><img src="assets/mmm2/mmm-jacket-result1.png" alt="Jacket front render"></div>
+          <div class="gallery-image"><img src="assets/mmm2/mmm-jacket-result2.png" alt="Jacket back render"></div>
+        </div>
+        <p class="gallery-caption">
+          <strong>Woven Tape Jacket</strong> &mdash; Interlocking woven ribbon strips
+          with hanging fringe elements. An extreme test of structural fidelity&mdash;the
+          pipeline maintains the chaotic interlace pattern and individual dangling strips
+          rather than rationalizing them into a cleaner weave.
+        </p>
+      </div>
+
+      <!-- MMM3: Fair Isle Sweater -->
+      <div class="gallery-quad">
+        <div class="gallery-quad-header">
+          <span class="quad-label source-label">Source</span>
+          <span class="quad-label output-label">CIG Output</span>
+        </div>
+        <div class="gallery-quad-row">
+          <div class="gallery-image"><img src="assets/mmm3/mmm-sweater-input1.jpeg" alt="Sweater front source"></div>
+          <div class="gallery-image"><img src="assets/mmm3/mmm-sweater-input2.jpeg" alt="Sweater back source"></div>
+          <div class="gallery-image"><img src="assets/mmm3/mmm-sweater-result1.png" alt="Sweater front render"></div>
+          <div class="gallery-image"><img src="assets/mmm3/mmm-sweater-result2.png" alt="Sweater back render"></div>
+        </div>
+        <p class="gallery-caption">
+          <strong>Fair Isle Knit Sweater</strong> &mdash; Hand-knit construction with
+          colorwork yoke pattern and contrast sleeve panels. The render accurately reproduces
+          the stitch-level texture, chevron pattern transitions, and the natural irregularity
+          of hand-knit tension across the garment.
+        </p>
+      </div>
+
+      <!-- MMM5: Leather Vest (raw shoot) -->
+      <div class="gallery-quad">
+        <div class="gallery-quad-header">
+          <span class="quad-label source-label">Source</span>
+          <span class="quad-label output-label">CIG Output</span>
+        </div>
+        <div class="gallery-quad-row">
+          <div class="gallery-image"><img src="assets/mmm5/mmm-vest-input1.JPG" alt="Vest front source"></div>
+          <div class="gallery-image"><img src="assets/mmm5/mmm-vest-input2.JPG" alt="Vest back source"></div>
+          <div class="gallery-image"><img src="assets/mmm5/mmm-vest-result1.png" alt="Vest front render"></div>
+          <div class="gallery-image"><img src="assets/mmm5/mmm-vest-result2.png" alt="Vest back render"></div>
+        </div>
+        <p class="gallery-caption">
+          <strong>Leather Vest &mdash; Raw Photo Shoot Input</strong> &mdash; Source images
+          taken directly from a studio shoot: rotated orientation, visible backdrop edges,
+          full mannequin with articulated arms. The pipeline normalizes orientation, removes
+          the mannequin and studio environment, and produces catalog-ready renders preserving
+          the leather texture and button placement.
+        </p>
+      </div>
+    </div>
+
+    <!-- ─── Stress Tests ─── -->
+    <h3>Stress Tests</h3>
+    <p>
+      Challenging inputs that push the boundaries of the pipeline: complex construction,
+      intricate hardware, degraded source quality, and unconventional garment forms.
+    </p>
+
+    <div class="gallery">
+
+      <!-- MMM8: Garment Preservation Parameter -->
+      <div class="gallery-quad">
+        <div class="gallery-quad-header">
+          <span class="quad-label source-label">Source</span>
+          <span class="quad-label output-label">CIG Output</span>
+        </div>
+        <div class="gallery-quad-row">
+          <div class="gallery-image"><img src="assets/mmm8/mmm-vest-input1.jpeg" alt="Studded vest source front"></div>
+          <div class="gallery-image"><img src="assets/mmm8/mmm-vest-input2.jpeg" alt="Studded vest source back"></div>
+          <div class="gallery-image"><img src="assets/mmm8/mmm-vest-result145.png" alt="Vest render at 45%"></div>
+          <div class="gallery-image"><img src="assets/mmm8/mmm-vest-result195.png" alt="Vest render at 95%"></div>
+        </div>
+        <p class="gallery-caption">
+          <strong>Garment Preservation Parameter</strong> &mdash; Studded waistcoat with
+          mixed-size hardware across the lapels and edges. Outputs shown at 45% (left) and
+          95% (right) garment preservation. At lower values, the model takes more liberties
+          with stud placement and spacing; at higher values, individual stud positions and
+          the satin lining color are faithfully retained.
+        </p>
+      </div>
+
+      <!-- MMM9: Lighting Controls -->
+      <div class="gallery-quad">
+        <div class="gallery-quad-header">
+          <span class="quad-label source-label">Source</span>
+          <span class="quad-label output-label">CIG Output</span>
+        </div>
+        <div class="gallery-quad-row">
+          <div class="gallery-image"><img src="assets/mmm9/mmm-jacket-input1.webp" alt="Jacket source front"></div>
+          <div class="gallery-image"><img src="assets/mmm9/mmm-jacket-input2.webp" alt="Jacket source back"></div>
+          <div class="gallery-image"><img src="assets/mmm9/mmm-jacket-output1-soft.png" alt="Jacket soft light"></div>
+          <div class="gallery-image"><img src="assets/mmm9/mmm-jacket-output1-hardlight.png" alt="Jacket hard light"></div>
+        </div>
+        <p class="gallery-caption">
+          <strong>Lighting Control</strong> &mdash; Two-tone wool/knit jacket with puff
+          shoulders and ribbed waist. Same source processed with soft diffused lighting (left)
+          versus hard directional lighting (right). The lighting parameter adjusts shadow
+          definition, specular highlights, and edge contrast while leaving the garment
+          itself unchanged.
+        </p>
+      </div>
+
+      <!-- MMM10: Flat-Lay Cleanup -->
+      <div class="gallery-triple">
+        <div class="gallery-triple-header">
+          <span class="quad-label source-label">Source</span>
+          <span class="quad-label output-label">Flat-Lay On</span>
+          <span class="quad-label output-label">Flat-Lay Off</span>
+        </div>
+        <div class="gallery-triple-row">
+          <div class="gallery-image"><img src="assets/mmm10/mmm-coat-input1.webp" alt="Coat on hanger source"></div>
+          <div class="gallery-image"><img src="assets/mmm10/mmm-coat-output1-flatlayon.png" alt="Coat flat-lay on"></div>
+          <div class="gallery-image"><img src="assets/mmm10/mmm-coat-output1-flatlayoff.png" alt="Coat flat-lay off"></div>
+        </div>
+        <p class="gallery-caption">
+          <strong>Flat-Lay Cleanup</strong> &mdash; Oversized trench coat photographed
+          casually on a hanger. With flat-lay cleanup enabled (center), the pipeline straightens
+          and symmetrizes the garment while preserving all construction details. With cleanup
+          disabled (right), the hanger is removed but the original casual drape is
+          retained&mdash;demonstrating the boundary between arrangement correction and
+          garment alteration.
+        </p>
+      </div>
+
+      <!-- MMM7: Deconstructed Harness Jacket -->
+      <div class="gallery-quad">
+        <div class="gallery-quad-header">
+          <span class="quad-label source-label">Source</span>
+          <span class="quad-label output-label">CIG Output</span>
+        </div>
+        <div class="gallery-quad-row">
+          <div class="gallery-image"><img src="assets/mmm7/mmm-art-jacket-input1.jpg" alt="Harness jacket front source"></div>
+          <div class="gallery-image"><img src="assets/mmm7/mmm-art-jacket-input2.jpg" alt="Harness jacket back source"></div>
+          <div class="gallery-image"><img src="assets/mmm7/mmm-art-jacket-result1.png" alt="Harness jacket front render"></div>
+          <div class="gallery-image"><img src="assets/mmm7/mmm-art-jacket-result2.png" alt="Harness jacket back render"></div>
+        </div>
+        <p class="gallery-caption">
+          <strong>Deconstructed Leather Harness</strong> &mdash; An artisanal piece with
+          interlocking leather straps, brass buckles, and open negative space throughout
+          the body. The front render preserves the strap routing and hardware placement.
+          The back source was a partial close-up rather than a full view&mdash;the pipeline
+          extrapolates the full back construction, though some strap details are lost in
+          the inference.
+        </p>
+      </div>
+
+      <!-- MMM6: Marketplace Screenshot -->
+      <div class="gallery-pair">
+        <div class="gallery-image"><img src="assets/mmm6/mmm-furjacket-input1.jpg" alt="Marketplace screenshot source"></div>
+        <div class="gallery-image"><img src="assets/mmm6/mmm-furjacket-result1.png" alt="Shearling jacket render"></div>
+        <p class="gallery-caption">
+          <strong>Marketplace Screenshot Input</strong> &mdash; The lowest-quality source
+          in this set: a raw screenshot from a resale marketplace listing, including UI
+          chrome, multiple thumbnail angles, and compressed imagery. The pipeline extracts
+          the primary garment view and produces a clean ghost mannequin render&mdash;demonstrating
+          resilience to heavily degraded and non-standard inputs.
+        </p>
+      </div>
+    </div>
+
+    <!-- ─── Runway-to-Catalog Translation ─── -->
+    <h3>Runway-to-Catalog Translation</h3>
+    <p>
+      An experimental application: extracting individual garments from runway photography
+      and translating them into catalog-ready product shots. These inputs were not part
+      of the pipeline's intended use case, making them a useful test of generalization.
+    </p>
+
+    <div class="gallery">
+
+      <!-- MMM11: SS2001 Runway Look -->
+      <div class="gallery-pair">
+        <div class="gallery-image"><img src="assets/mmm11/mmm-2001look-input1.jpg" alt="MMM SS2001 runway source"></div>
+        <div class="gallery-image"><img src="assets/mmm11/mmm-2001look-output1.png" alt="MMM SS2001 render"></div>
+        <p class="gallery-caption">
+          <strong>Runway Look &mdash; SS 2001</strong> &mdash; A low-resolution, poorly lit
+          runway photograph with a black backdrop and motion artifacts. The pipeline isolates
+          the layered blazer-over-dress construction and translates it into a ghost mannequin
+          render, correctly interpreting the draped fabric relationship between the two pieces
+          despite extreme source degradation.
+        </p>
+      </div>
+
+      <!-- RAF1: Mixed-Quality Runway + Product -->
+      <div class="gallery-quad">
+        <div class="gallery-quad-header">
+          <span class="quad-label source-label">Source</span>
+          <span class="quad-label output-label">CIG Output</span>
+        </div>
+        <div class="gallery-quad-row">
+          <div class="gallery-image"><img src="assets/raf1/raf-jacket-input1.jpg" alt="Bomber jacket runway source"></div>
+          <div class="gallery-image"><img src="assets/raf1/raf-jacket-input2.jpg" alt="Bomber jacket back source"></div>
+          <div class="gallery-image"><img src="assets/raf1/raf-jacket-result1.png" alt="Bomber jacket front render"></div>
+          <div class="gallery-image"><img src="assets/raf1/raf-jacket-result2.png" alt="Bomber jacket back render"></div>
+        </div>
+        <p class="gallery-caption">
+          <strong>Mixed-Quality Source Fusion</strong> &mdash; Front view from a low-resolution
+          runway photograph; back view from a high-quality product shot. The pipeline blends
+          these disparate sources into a cohesive pair of renders, though lighting temperature
+          differences between the two inputs remain visible&mdash;a known limitation when
+          source conditions vary significantly.
+        </p>
+      </div>
+
+      <!-- DIOR1: Galliano FW2003 -->
+      <div class="gallery-pair">
+        <div class="gallery-image"><img src="assets/dior1/dior_look-input1.jpg" alt="Dior FW2003 runway source"></div>
+        <div class="gallery-image"><img src="assets/dior1/dior_look_result1.png" alt="Dior FW2003 render"></div>
+        <p class="gallery-caption">
+          <strong>Runway Look &mdash; FW 2003</strong> &mdash; Full runway look with
+          dramatic denim bow construction and printed trousers, captured under warm stage
+          lighting. The pipeline recreates the complex three-dimensional bow structure and
+          preserves the graphic print detail on the trousers. Minor inaccuracies appear in
+          the print text and some seam lines&mdash;expected behavior when the source resolution
+          is insufficient for pixel-level fidelity.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════ -->
+  <!-- HOW IT WORKS — Technical deep-dive          -->
+  <!-- ═══════════════════════════════════════════ -->
+
+  <section class="container section" id="techniques">
+    <h2>How It Works</h2>
+    <p class="section-intro">
+      A deeper look at the strategies that make CIG outputs consistent
+      and accurate at scale.
+    </p>
+
+    <!-- Style Reference Enforcement -->
+    <div class="technique">
+      <h3>Style Reference Enforcement</h3>
+      <div class="two-col">
+        <div>
+          <p>
+            The central challenge in catalog photography isn't generating a
+            single good image&mdash;it's generating <em>thousands</em> of
+            images that look like they belong together. CIG achieves this
+            computationally through a <strong>style reference library</strong>&mdash;a
+            curated set of "gold standard" product photos that define the
+            target aesthetic: background, lighting, framing, and shadow behavior.
+          </p>
+          <p>
+            The model extracts <em>only</em> environmental properties from
+            references while ignoring the garments within them. Without this
+            decoupling, the model tends to "borrow" design elements from
+            reference garments, contaminating the output.
+          </p>
+        </div>
+        <div class="technique-detail-card">
+          <h5>Reference Isolation Protocol</h5>
+          <p>
+            Source images are "bookended"&mdash;placed at both the beginning
+            and end of the input sequence&mdash;creating an anchoring
+            effect that prevents reference contamination:
+          </p>
+          <div class="code-block">
+[Source] [Ref 1] [Ref 2] ... [Ref N] [Source]
+          </div>
+          <p>
+            This reduced reference contamination from ~35% to &lt;5%.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Multi-View Construction -->
+    <div class="technique">
+      <h3>Multi-View Construction Inference</h3>
+      <p>
+        Ghost mannequin rendering requires understanding garment construction
+        that may not be visible from a single angle. A halter dress with a
+        tie-back closure will be incorrectly rendered with a clasp if the
+        model only sees the front.
+      </p>
+      <p>
+        CIG accepts <strong>multi-view inputs</strong> (front + back). The
+        model uses the alternate view as a construction reference, enabling
+        accurate reproduction of closures, seam lines, and structural details.
+        Both front and back renders are produced, using each as the other's reference.
+      </p>
+    </div>
+
+    <!-- Critique Loop -->
+    <div class="technique">
+      <h3>Two-Pass Critique Loop</h3>
+      <p>
+        Rather than accepting single-shot output, CIG employs an automated
+        critique-and-correct loop with two independent checks:
+      </p>
+      <div class="two-col">
+        <div class="critique-card">
+          <div class="critique-header fidelity">Garment Fidelity</div>
+          <p>
+            Compares output against source: color, structural integrity,
+            detail preservation, state consistency. Only flags
+            customer-visible issues.
+          </p>
+        </div>
+        <div class="critique-card">
+          <div class="critique-header style">Style Consistency</div>
+          <p>
+            Compares output against the style library: background purity,
+            lighting match, framing, shadow behavior. Ensures catalog
+            coherence.
+          </p>
+        </div>
+      </div>
+      <p>
+        Failed critiques produce specific correction instructions that are
+        injected into subsequent generation passes (up to 3 attempts),
+        raising output quality from ~80% first-pass to &gt;95%.
+      </p>
+    </div>
+
+    <!-- Flat-Lay Cleanup -->
+    <div class="technique">
+      <h3>Flat-Lay Cleanup</h3>
+      <p>
+        Source images often arrive as informal flat-lays with uneven folds
+        and casual arrangement. CIG's cleanup mode <strong>re-styles the
+        arrangement</strong> (straighten, center, symmetrize) without
+        altering the garment itself&mdash;no color, pattern, detail, or
+        state changes permitted. This boundary is enforced through
+        constraint separation and validated by the fidelity critique.
+      </p>
+    </div>
+
+    <!-- Drape Intelligence -->
+    <div class="technique">
+      <h3>Drape Intelligence</h3>
+      <p>
+        A tunable parameter (0.0&ndash;1.0) controls the model's
+        understanding of fabric behavior, from ultra-fluid silk to rigid
+        denim:
+      </p>
+      <div class="drape-scale">
+        <div class="drape-item">
+          <div class="drape-value">0.0 &ndash; 0.2</div>
+          <div class="drape-label">Ultra-fluid (silk, satin)</div>
+          <div class="drape-desc">Flowing natural folds, liquid-like movement</div>
+        </div>
+        <div class="drape-item">
+          <div class="drape-value">0.2 &ndash; 0.4</div>
+          <div class="drape-label">Light (cotton, linen)</div>
+          <div class="drape-desc">Soft gentle creases, natural fall</div>
+        </div>
+        <div class="drape-item">
+          <div class="drape-value">0.4 &ndash; 0.6</div>
+          <div class="drape-label">Medium (blends, jersey)</div>
+          <div class="drape-desc">Balanced structure with natural movement</div>
+        </div>
+        <div class="drape-item">
+          <div class="drape-value">0.6 &ndash; 0.8</div>
+          <div class="drape-label">Structured (twill, canvas)</div>
+          <div class="drape-desc">Defined rigid folds, holds shape</div>
+        </div>
+        <div class="drape-item">
+          <div class="drape-value">0.8 &ndash; 1.0</div>
+          <div class="drape-label">Heavy (denim, leather)</div>
+          <div class="drape-desc">Minimal draping, firm structure</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accuracy Reinforcement -->
+    <div class="technique">
+      <h3>Accuracy Reinforcement</h3>
+      <p>
+        Image generation models naturally "idealize" their subjects. For
+        product photography this is a failure mode&mdash;garments must look
+        exactly as they'll arrive. CIG enforces fidelity through a tunable
+        preservation parameter:
+      </p>
+      <div class="two-col">
+        <div class="preservation-level">
+          <h5>High Fidelity (0.8&ndash;1.0)</h5>
+          <p>
+            Pixel-level preservation. Every stitch, button, logo, seam, and
+            texture must match. Used for production renders.
+          </p>
+        </div>
+        <div class="preservation-level">
+          <h5>Balanced (0.5&ndash;0.8)</h5>
+          <p>
+            Key elements preserved but minor re-draping permitted. Useful
+            for low-quality source photos.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Economics -->
+  <section class="container section" id="economics">
+    <h2>Cost Model</h2>
+    <div class="two-col">
+      <div>
+        <p>
+          At scale, CIG processes garments at a fraction of traditional
+          photography costs while delivering consistent output in seconds.
+        </p>
+        <p>
+          The critique loop adds ~10% overhead but reduces manual QA
+          intervention from ~20% to &lt;5% of images.
+        </p>
+      </div>
+      <div>
+        <table class="cost-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Traditional</th>
+              <th>CIG</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Per garment</td>
+              <td>$50&ndash;$80</td>
+              <td class="highlight">&lt;$0.02</td>
+            </tr>
+            <tr>
+              <td>1,000 SKUs</td>
+              <td>$50K&ndash;$80K</td>
+              <td class="highlight">~$20</td>
+            </tr>
+            <tr>
+              <td>Turnaround</td>
+              <td>2&ndash;5 days</td>
+              <td class="highlight">Minutes</td>
+            </tr>
+            <tr>
+              <td>Consistency</td>
+              <td>Variable</td>
+              <td class="highlight">Enforced</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>Von Lange Labs &mdash; Confidential &mdash; March 2026</p>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" aria-label="Close">&times;</button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="">
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
