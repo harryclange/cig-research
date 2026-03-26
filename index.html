@@ -18,14 +18,14 @@
       <h1>CIG: Consistent Image Generation<br>for Product Photography</h1>
       <p class="hero-sub">
         A multi-stage image synthesis pipeline that transforms raw garment
-        photographs into studio-quality ghost mannequin renders at 4K
+        photographs into studio-quality ghost mannequin renders at high
         resolution&mdash;preserving exact garment details while enforcing
         catalog-wide visual consistency.
       </p>
       <div class="hero-meta">
         <span>Von Lange</span>
         <span class="dot"></span>
-        <span>Custom Image Model</span>
+        <span>Custom Image Generation Pipeline for Consistent Catalog Libraries</span>
       </div>
     </div>
   </header>
@@ -242,8 +242,11 @@
           <strong>Lighting Control</strong> &mdash; Two-tone wool/knit jacket with puff
           shoulders and ribbed waist. Same source processed with soft diffused lighting (left)
           versus hard directional lighting (right). The lighting parameter adjusts shadow
-          definition, specular highlights, and edge contrast while leaving the garment
-          itself unchanged.
+          definition, specular highlights, and edge contrast. A known regression occurs
+          here: the sleeve construction changes between lighting modes, with the hard
+          light variant losing some of the puff-shoulder definition&mdash;indicating
+          the model backsteps on garment accuracy when re-rendering under different
+          lighting conditions. This is a target for correction in future iterations.
         </p>
       </div>
 
